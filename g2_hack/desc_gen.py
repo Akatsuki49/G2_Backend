@@ -7,8 +7,9 @@ from keyword_extraction import keygen
 
 def generate_summary(input_data):
     warnings.filterwarnings("ignore")
+    OPENAI_API_KEY="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"
     client = OpenAI(
-        api_key=os.getenv("OPENAI_API_KEY"))
+        api_key=OPENAI_API_KEY)
     keywords = keygen(str(input_data))
     prompt = f'''
     {keywords}
@@ -22,7 +23,7 @@ def generate_summary(input_data):
         temperature=0.1,
         max_tokens=100
     )
-    print(response.choices[0].text.strip())
+    # print(response.choices[0].text.strip())
 
     return response.choices[0].text.strip()
 

@@ -25,7 +25,7 @@ def summarize():
     if not os.path.exists(loc):
         subprocess.run(['python', 'keyword_model.py'])
     summary = generate_summary(cleaned_data['full_text'])
-    return jsonify({'summary': summary})
+    return summary
 
 
 if __name__ == '__main__':
