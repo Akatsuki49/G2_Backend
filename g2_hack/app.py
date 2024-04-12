@@ -16,8 +16,8 @@ def summarize():
     url = request.form['url']
     scrape(url)
     cw = os.getcwd()
-    fd = os.path.join(cw,'spiders/scraped_data')
-    for file in fd:
+    fd = os.path.join(cw,'scraped_data')
+    for file in os.listdir(fd):
         fs = os.path.join(fd,file)
     cleaned_data = clean_text_data(fs)
     # run a shell command: python keyword_model.py
