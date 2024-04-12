@@ -21,7 +21,9 @@ def summarize():
         fs = os.path.join(fd,file)
     cleaned_data = clean_text_data(fs)
     # run a shell command: python keyword_model.py
-    subprocess.run(['python', 'keyword_model.py'])
+    loc = os.path.join(cw,'keybert_model.pkl')
+    if not os.path.exists(loc):
+        subprocess.run(['python', 'keyword_model.py'])
     summary = generate_summary(cleaned_data['full_text'])
     return jsonify({'summary': summary})
 
