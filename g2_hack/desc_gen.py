@@ -7,7 +7,7 @@ from keyword_extraction import keygen
 def generate_summary(input_data):
     warnings.filterwarnings("ignore")
     client = OpenAI(
-        api_key='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')
+        api_key=os.getenv("OPENAI_API_KEY"))
     keywords = keygen(str(input_data))
     prompt = f'''
     {keywords}
