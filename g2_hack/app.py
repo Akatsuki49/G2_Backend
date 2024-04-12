@@ -1,9 +1,12 @@
 
 from flask import Flask, request, jsonify
+import threading
 from spiders.product_description_spider import scrape
 from data_cleaner import clean_text_data
 from desc_gen import generate_summary
 import subprocess
+from werkzeug.serving import make_server
+import shutil
 import os
 
 
@@ -25,6 +28,8 @@ def summarize():
     if not os.path.exists(loc):
         subprocess.run(['python', 'keyword_model.py'])
     summary = generate_summary(cleaned_data['full_text'])
+    if os.path.exists(fd):
+        shutil.rmtree(fd)
     return summary
 
 

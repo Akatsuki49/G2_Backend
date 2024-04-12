@@ -1,9 +1,11 @@
 import scrapy
-from scrapy.selector import Selector
+from scrapy.crawler import CrawlerProcess
 from newspaper import Article
+import random
 import os
 from scrapy.crawler import CrawlerProcess
 import json
+from twisted.internet import reactor
 import sys
 
 def scrape(url):
@@ -120,7 +122,9 @@ def scrape(url):
                 print(paragraph)
                 print()
 
+    
     process = CrawlerProcess()
     process.crawl(ProductDescriptionSpider)
     process.start()
+    # return process
 
