@@ -1,12 +1,8 @@
 import scrapy
 from scrapy.crawler import CrawlerProcess
 from newspaper import Article
-import random
 import os
-from scrapy.crawler import CrawlerProcess
 import json
-from twisted.internet import reactor
-import sys
 
 def scrape(url):
     class ProductDescriptionSpider(scrapy.Spider):

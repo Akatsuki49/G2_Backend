@@ -14,7 +14,7 @@ def generate_summary(input_data):
     prompt = f'''
     {keywords}
 
-    Using the above information, generate a short 1-2 lines of description, and make sure that the description generated has most of the text from the above information provided. Keep the description very professional
+    Using the above information, generate a short 1-2 lines of description, and make sure that the description generated has most of the text from the above information provided. Keep the description very professional and do not disclose information about any place in the world
     '''
 
     response = client.completions.create(

@@ -30,7 +30,7 @@ def summarize():
     summary = generate_summary(cleaned_data['full_text'])
     if os.path.exists(fd):
         shutil.rmtree(fd)
-    return summary
+    return jsonify({"text":summary})
 
 
 if __name__ == '__main__':
