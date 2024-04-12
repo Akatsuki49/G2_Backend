@@ -1,5 +1,6 @@
 import sys
 import warnings
+import os
 from openai import OpenAI
 from keyword_extraction import keygen
 

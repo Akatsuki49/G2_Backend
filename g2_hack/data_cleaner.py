@@ -1,6 +1,7 @@
 import nltk
 import re
 from nltk.corpus import stopwords
+import json
 from nltk.tokenize import sent_tokenize
 
 # Download stopwords if not already downloaded
@@ -30,11 +31,14 @@ def sentence_tokenization(text):
     return sent_tokenize(text)
 
 
-def clean_text_data(input_text):
+def clean_text_data(input_fs):
+    with open(input_fs,'r',encoding='utf-8') as f1:
+        cleaned_data1 = json.load(f1)
+    input_text = cleaned_data1['full_text']
     cleaned_data = {}
-    cleaned_data['text'] = remove_stopwords(clean_text(input_text))
+    cleaned_data['full_text'] = remove_stopwords(clean_text(input_text))
     cleaned_data['text_sentences'] = sentence_tokenization(
-        cleaned_data['text'])
+        cleaned_data1['text'])
     return cleaned_data
 
 
