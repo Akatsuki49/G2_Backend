@@ -7,7 +7,7 @@ from keyword_extraction import keygen
 
 def generate_summary(input_data):
     warnings.filterwarnings("ignore")
-    OPENAI_API_KEY="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"
+    OPENAI_API_KEY="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"
     client = OpenAI(
         api_key=OPENAI_API_KEY)
     keywords = keygen(str(input_data))
@@ -21,7 +21,7 @@ def generate_summary(input_data):
         model="gpt-3.5-turbo-instruct",
         prompt=prompt,
         temperature=0.1,
-        max_tokens=100
+        max_tokens=80
     )
     # print(response.choices[0].text.strip())
 

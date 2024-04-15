@@ -1,4 +1,3 @@
-
 from flask import Flask, request, jsonify
 import threading
 from spiders.product_description_spider import scrape
@@ -15,7 +14,6 @@ app = Flask(__name__)
 
 @app.route('/summarize', methods=['POST'])
 def summarize():
-    print("hi")
     url = request.form['url']
     scrape(url)
     cw = os.getcwd()
