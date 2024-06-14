@@ -7,6 +7,17 @@
   ```bash
   pip install -r requirements.txt
   ```
+2. Setup redis on docker:
+
+i) Install the docker image of redis
+
+ii) ```
+   docker run -d -p 6379:6379 --name rdb redis
+     ```
+     
+iii) ```
+   docker start rdb
+     ```
 
 2. Navigate to spiders directory inside g2_hack and run - 
 
