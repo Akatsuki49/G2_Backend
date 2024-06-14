@@ -1,2 +1,4 @@
 g2_venv/
 g2_hack/keybert_model.pkl
+g2_hack/__pycache__/
+g2_hack/spiders/__pycache__/

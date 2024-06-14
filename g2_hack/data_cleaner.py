@@ -31,9 +31,7 @@ def sentence_tokenization(text):
     return sent_tokenize(text)
 
 
-def clean_text_data(input_fs):
-    with open(input_fs,'r',encoding='utf-8') as f1:
-        cleaned_data1 = json.load(f1)
+def clean_text_data(cleaned_data1):
     input_text = cleaned_data1['full_text']
     cleaned_data = {}
     cleaned_data['full_text'] = remove_stopwords(clean_text(input_text))

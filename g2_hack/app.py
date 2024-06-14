@@ -7,9 +7,12 @@ import subprocess
 from werkzeug.serving import make_server
 import shutil
 import os
-
+import redis
+import json
+import sys
 
 app = Flask(__name__)
+r = redis.Redis(host='localhost', port=6379, decode_responses=True)
 
 
 def save_app():
@@ -30,27 +33,42 @@ def save_app():
     with open('app.py', 'w') as file:
         file.writelines(lines)
 
+
 @app.route('/summarize', methods=['POST'])
 def summarize():
     url = request.form['url']
-    scrape(url)
+
+    if (r.exists(f"summary:{url}") == True):
+        return jsonify({"summary": r.get(f"summary:{url}")})
+
+    if (r.exists(f"scraped:{url}") == False):
+        scrape(url)
+
     cw = os.getcwd()
-    fd = os.path.join(cw,'scraped_data')
-    for file in os.listdir(fd):
-        fs = os.path.join(fd,file)
-    cleaned_data = clean_text_data(fs)
-    # run a shell command: python keyword_model.py
-    loc = os.path.join(cw,'keybert_model.pkl')
+    # fd = os.path.join(cw, 'scraped_data')
+    # for file in os.listdir(fd):
+    #     fs = os.path.join(fd, file)
+
+    data = r.hgetall(f"scraped:{url}")
+    cleaned_data = clean_text_data(data)
+
+    # run a shell command: python keyword_model.pyqs
+    loc = os.path.join(cw, 'keybert_model.pkl')
     if not os.path.exists(loc):
-        subprocess.run(['python', 'keyword_model.py'])
+        subprocess.run([sys.executable, 'keyword_model.py'])
     summary = generate_summary(cleaned_data['full_text'])
-    if os.path.exists(fd):
-        shutil.rmtree(fd)
-    save_app()
-    return jsonify({"text":summary})
+    r.set(f"summary:{url}", summary)
+    # save_app()
+    return jsonify({"summary": summary})
+
+
+@app.route('/scrape', methods=["POST"])
+def get_scraped_data():
+    url = request.form['url']
+    if (r.exists(f"scraped:{url}")):
+        return jsonify({"text": r.hgetall(f"scraped:{url}")})
+    scrape(url)
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
-
-
+    app.run(host='0.0.0.0', port=5000, debug=False, use_reloader=False)
