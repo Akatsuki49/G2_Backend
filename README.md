@@ -48,3 +48,5 @@ iii) ```
   ```bash 
   python desc_gen.py <path_to_your_cleaned_json_file>
   ```
+
+5. desc.py now has added support of gemini, mistral as well. ive generated 10 summaries each from all 3 models and put them in summaries.txt file. These will be used as reference summaries for eval
