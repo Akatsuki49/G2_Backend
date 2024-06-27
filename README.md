@@ -50,3 +50,10 @@ iii) ```
   ```
 
 5. desc.py now has added support of gemini, mistral as well. ive generated 10 summaries each from all 3 models and put them in summaries.txt file. These will be used as reference summaries for eval
+
+6. eval.py has all the evaluation files:
+- embedding similarity between keyphrases and full context
+- rouge1 and rougeL scores between keyPhrases and full context
+
+- embedding similarity avg between generated summary and reference summaries
+- rouge1 and rougeL score avg between generated summary and reference summaries
