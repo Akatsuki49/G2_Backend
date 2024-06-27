@@ -137,10 +137,10 @@ if __name__ == "__main__":
 
     key_phrases = actual_key_phrases
 
-    # print("Average KeyPhrase Embedding Similarity: ",
-    #       embedding_similarity_keyphrases(full_context, key_phrases))
-    # print("Average KeyPhrase Rouge1 and RougeL Scores: ", rouge_score_keyphrases(
-    #     full_context, key_phrases))
+    print("Average KeyPhrase Embedding Similarity: ",
+          embedding_similarity_keyphrases(full_context, key_phrases))
+    print("Average KeyPhrase Rouge1 and RougeL Scores: ", rouge_score_keyphrases(
+        full_context, key_phrases))
 
     generated_summary = r.get(f"summary:{url}")
 
