@@ -122,7 +122,7 @@ def eval_summary(generated_summary, reference_summaries):
 
 
 if __name__ == "__main__":
-    r = redis.Redis(host='localhost', port=6379, db=0)
+    r = redis.Redis(host='shubham', port=6379, db="")
 
     url = "https://www.chattechnologies.com/"
     data_full_context = r.hgetall(f"scraped:{url}")
