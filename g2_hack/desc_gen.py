@@ -3,19 +3,20 @@ import warnings
 import os
 from openai import OpenAI
 import google.generativeai as genai
-from keyword_extraction import keygen
+from keyword_extraction import keygen_models
 from mistralai.client import MistralClient
 from mistralai.models.chat_completion import ChatMessage
 import redis
 from data_cleaner import clean_text_data
 
 
-def generate_summary_keybert_gpt(input_data):
+def generate_summary_gpt(input_data, url):
     warnings.filterwarnings("ignore")
     OPENAI_API_KEY = os.environ['OpenAI_API_KEY_G2']
     client = OpenAI(
         api_key=OPENAI_API_KEY)
-    keywords = keygen(str(input_data))
+    KeygenModels = keygen_models(input_data, url)
+    keywords = KeygenModels.main_model()
     prompt = f'''
     {keywords}
 
@@ -33,11 +34,12 @@ def generate_summary_keybert_gpt(input_data):
     return response.choices[0].text.strip()
 
 
-def generate_summary_keybert_gemini(input_data):
+def generate_summary_gemini(input_data, url):
     GEMINI_API_KEY = os.environ['Gemini_API_KEY_G2']
     genai.configure(api_key=GEMINI_API_KEY)
     model = genai.GenerativeModel('gemini-1.5-flash')
-    keywords = keygen(str(input_data))
+    KeygenModels = keygen_models(input_data, url)
+    keywords = KeygenModels.main_model()
     prompt = f'''
     {keywords}
 
@@ -54,13 +56,14 @@ def generate_summary_keybert_gemini(input_data):
     return response.text
 
 
-def generate_summary_keybert_mixtral(input_data):
+def generate_summary_mixtral(input_data, url):
     MIXTRAL_API_KEY = os.environ['Mistral_API_KEY_G2']
     # model = "mistral-large-latest"
     model = "open-mixtral-8x22b"
 
     client = MistralClient(api_key=MIXTRAL_API_KEY)
-    keywords = keygen(str(input_data))
+    KeygenModels = keygen_models(input_data, url)
+    keywords = KeygenModels.main_model()
 
     prompt = f'''
     {keywords}

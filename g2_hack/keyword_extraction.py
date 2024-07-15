@@ -20,11 +20,6 @@ import torch
 import re
 
 
-# import torch
-# nltk.download("stopwords")
-# nltk.download('punkt')
-# r=Rake()
-
 r = redis.Redis(host='localhost', port=6379, db=0)
 
 
@@ -288,7 +283,7 @@ def eval_lst(main_lst, _bigLst):
 
     # instead of doign simple exists: i need to check their embedding similarity scores, if similar yes give it a good score
 
-    threshold = 0.5
+    threshold = 0.40
 
     def preprocess_text(input_string):
         cleaned_string = re.sub(r'\.+', ' ', input_string)
@@ -329,6 +324,8 @@ def eval_lst(main_lst, _bigLst):
 
             if max_similarity > threshold:
                 score += 1
+            # else:
+            #     print(lst[i], max_similarity)
         total_avg += score
 
     total_avg = total_avg / (len(_bigLst) * len(_bigLst[0]))
@@ -342,15 +339,9 @@ if __name__ == "__main__":
     #         'https://www.chattechnologies.com/', 'https://inita.com/', 'https://aim-agency.com/']
 
     # urls = ['https://www.telesign.com/products/trust-engine']
-    # urls = ['https://www.litzia.com/professional-it-services/']
+    urls = ['https://www.litzia.com/professional-it-services/']
     # urls = ['https://www.chattechnologies.com/']
     # urls = ['https://inita.com/']
-    urls = ['https://aim-agency.com/']
+    # urls = ['https://aim-agency.com/']
 
     eval_main_model(urls)
-    # data_full_context = r.hgetall(f"scraped:{url}")
-    # decoded_data = {key.decode('utf-8'): value.decode('utf-8')
-    #                 for key, value in data_full_context.items()}
-
-    # full_context1 = clean_text_data(decoded_data)
-    # full_context = decoded_data['full_text']
