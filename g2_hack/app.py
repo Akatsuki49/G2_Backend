@@ -58,8 +58,8 @@ def summarize():
     loc = os.path.join(cw, 'keybert_model.pkl')
     if not os.path.exists(loc):
         subprocess.run([sys.executable, 'keyword_model.py'])
-    summary = generate_summary_keybert_gpt(cleaned_data['full_text'])
-    # summary = generate_summary_keybert_gemini(cleaned_data['full_text'])
+    # summary = generate_summary_keybert_gpt(cleaned_data['full_text'])
+    summary = generate_summary_keybert_gemini(cleaned_data['full_text'])
     # summary = generate_summary_keybert_mixtral(cleaned_data['full_text'])
     r.set(f"summary:{url}", summary)
     save_app()
@@ -73,6 +73,9 @@ def get_scraped_data():
         return jsonify({"text": r.hgetall(f"scraped:{url}")})
     scrape(url)
 
+    return jsonify({"text": r.hgetall(f"scraped:{url}")})
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=False, use_reloader=False)
+

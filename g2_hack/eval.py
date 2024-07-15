@@ -122,7 +122,8 @@ def eval_summary(generated_summary, reference_summaries):
 
 
 if __name__ == "__main__":
-    r = redis.Redis(host='shubham', port=6379, db="")
+    # r = redis.Redis(host='shubham', port=6379, db="")
+    r = redis.Redis(host='localhost', port=6379, db=0)
 
     url = "https://www.chattechnologies.com/"
     data_full_context = r.hgetall(f"scraped:{url}")
@@ -146,10 +147,6 @@ if __name__ == "__main__":
 
     reference_summaries = load_reference_summaries(
         f'C:\\Users\\sowme\\StudioProjects\\G2_Backend\\g2_hack\\summaries.txt')
-
-    # print("Ref : ", reference_summaries, len(reference_summaries))
-    # print("Gen : ", generated_summary)
-    # generate an evaluation score: average_embedding similarity, average_rouge1, average_rougeL
 
     average_embedding_similarity, average_rouge1, average_rougeL = eval_summary(
         generated_summary, reference_summaries)
