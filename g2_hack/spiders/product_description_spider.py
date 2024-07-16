@@ -10,6 +10,7 @@ def scrape(url):
     r = redis.Redis(host='localhost', port=6379, decode_responses=True)
 
     if (r.exists(f"scraped:{url}")):
+        print("hahahhhh luffy")
         return r.hgetall(f"scraped:{url}")
 
     class ProductDescriptionSpider(scrapy.Spider):

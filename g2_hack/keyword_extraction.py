@@ -339,9 +339,9 @@ if __name__ == "__main__":
     #         'https://www.chattechnologies.com/', 'https://inita.com/', 'https://aim-agency.com/']
 
     # urls = ['https://www.telesign.com/products/trust-engine']
-    urls = ['https://www.litzia.com/professional-it-services/']
+    # urls = ['https://www.litzia.com/professional-it-services/']
     # urls = ['https://www.chattechnologies.com/']
     # urls = ['https://inita.com/']
-    # urls = ['https://aim-agency.com/']
+    urls = ['https://aim-agency.com/']
 
     eval_main_model(urls)

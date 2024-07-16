@@ -38,11 +38,15 @@ def save_app():
 def summarize():
     url = request.form['url']
 
+    print(r.get(f"summary:{url}"))
+
     if (r.exists(f"summary:{url}") == True):
         return jsonify({"summary": r.get(f"summary:{url}")})
 
     if (r.exists(f"scraped:{url}") == False):
-        scrape(url)
+        x = scrape(url)
+        if (len(x) == 0):
+            return jsonify({"text": "This website blocks web crawling :("})
 
     cw = os.getcwd()
     # fd = os.path.join(cw, 'scraped_data')
@@ -71,11 +75,15 @@ def get_scraped_data():
     url = request.form['url']
     if (r.exists(f"scraped:{url}")):
         return jsonify({"text": r.hgetall(f"scraped:{url}")})
-    scrape(url)
+    x = scrape(url)
+
+    if (len(x) == 0):
+        return jsonify({"text": "This website blocks web crawling :("})
 
     return jsonify({"text": r.hgetall(f"scraped:{url}")})
 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=False, use_reloader=False)
+
 
