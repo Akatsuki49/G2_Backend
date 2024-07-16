@@ -35,7 +35,7 @@ class keygen_models:
             return str_lst
 
         client = Groq(
-            api_key='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',
+            api_key='',
         )
         chat_completion = client.chat.completions.create(
             messages=[
@@ -59,7 +59,7 @@ class keygen_models:
             str_lst = str.strip('[]').split(', ')
             return str_lst
 
-        api_key = 'FWxPbAliDOaNC2DdFohRTCFd9UxeeUNo'
+        api_key = ''
         model = "open-mixtral-8x22b"
 
         client = MistralClient(api_key=api_key)
@@ -76,32 +76,6 @@ class keygen_models:
         r.set(f"keyphrases_mistral:{self.url}", ans2)
         str_lst = ans2.strip('[]').split(', ')
         return str_lst
-
-    # def get_from_gemini(self):
-    #     if r.exists(f"keyphrases_gemini:{self.url}"):
-    #         str = r.get(f"keyphrases_gemini:{self.url}").decode('utf-8')
-    #         str_lst = str.strip('[]').split(', ')
-    #         return str_lst
-
-    #     genai.configure(api_key="AIzaSyDG8Ocml8L2RtuWRbeVpesAhOIQz9qAVec")
-    #     model = genai.GenerativeModel('gemini-1.5-pro')
-
-    #     prompt = self.text + '\n\n\n Give top 20 keyphrases in the given text. Separate them by commas and within square brackets. Keep the keyphrases length of 2-3 words. I dont want any extra text. Just the formatted list of keyphrases.'
-
-    #     safety_config = {
-    #         generative_models.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
-    #         generative_models.HarmCategory.HARM_CATEGORY_HARASSMENT: generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
-    #         generative_models.HarmCategory.HARM_CATEGORY_HATE_SPEECH: generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
-    #         generative_models.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: generative_models.HarmBlockThreshold.BLOCK_ONLY_HIGH,
-    #     }
-    #     response = model.generate_content(
-    #         prompt, safety_settings=safety_config)
-    #     print(response)
-    #     response = response.text
-
-    #     r.set(f"keyphrases_gemini:{self.url}", response)
-
-    #     return response
 
     def get_from_textrank(self):
         if r.exists(f"keyphrases_textrank:{self.url}"):
@@ -196,27 +170,6 @@ class keygen_models:
         top_indices = sorted_indices[:20]
 
         return [all_phrases[idx] for idx in top_indices]
-
-    # def similar(self, a1, a2, a3):
-    #     str_a1 = ','.join(a1)
-    #     str_a2 = ','.join(a2)
-    #     str_a3 = ','.join(a3)
-
-    #     client = Groq(
-    #         api_key='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',
-    #     )
-    #     chat_completion = client.chat.completions.create(
-    #         messages=[
-    #             {
-    #                 "role": "user",
-    #                 "content": str_a1 + '\nThis is the first set of data\n' + str_a2 + '\nThis is the second set of data\n' + str_a3 + '\nThis is the third set of data\n\n\n Extract top 12 keyphrases which occur and are similar in atleast two out of the three sets of data. Separate them by commas and within single square brackets. ',
-    #             }
-    #         ],
-    #         model="mixtral-8x7b-32768",
-    #         temperature=0.1
-    #     )
-    #     k1 = chat_completion.choices[0].message.content
-    #     return k1
 
     def main_model(self):
         if r.exists(f"keyphrases:{self.url}"):
@@ -340,8 +293,8 @@ if __name__ == "__main__":
 
     # urls = ['https://www.telesign.com/products/trust-engine']
     # urls = ['https://www.litzia.com/professional-it-services/']
-    # urls = ['https://www.chattechnologies.com/']
+    urls = ['https://www.chattechnologies.com/']
     # urls = ['https://inita.com/']
-    urls = ['https://aim-agency.com/']
+    # urls = ['https://aim-agency.com/']
 
     eval_main_model(urls)
